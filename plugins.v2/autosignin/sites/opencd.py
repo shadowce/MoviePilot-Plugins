@@ -46,7 +46,7 @@ class Opencd(_ISiteSigninHandler):
         timeout = site_info.get("timeout")
 
         # 判断今日是否已签到
-        html_text = self.get_page_source(url='https://www.open.cd',
+        html_text = self.get_page_source(url='https://open.cd',
                                          cookie=site_cookie,
                                          ua=ua,
                                          proxy=proxy,
@@ -65,7 +65,7 @@ class Opencd(_ISiteSigninHandler):
             return True, '今日已签到'
 
         # 获取签到参数
-        html_text = self.get_page_source(url='https://www.open.cd/plugin_sign-in.php',
+        html_text = self.get_page_source(url='https://open.cd/plugin_sign-in.php',
                                          cookie=site_cookie,
                                          ua=ua,
                                          proxy=proxy,
@@ -87,7 +87,7 @@ class Opencd(_ISiteSigninHandler):
             return False, '签到失败，获取签到参数失败'
 
         # 完整验证码url
-        img_get_url = 'https://www.open.cd/%s' % img_url
+        img_get_url = 'https://open.cd/%s' % img_url
         logger.debug(f"{site} 获取到{site}验证码链接 {img_get_url}")
 
         # ocr识别多次，获取6位验证码
@@ -118,7 +118,7 @@ class Opencd(_ISiteSigninHandler):
             sign_res = RequestUtils(cookies=site_cookie,
                                     ua=ua,
                                     proxies=settings.PROXY if proxy else None
-                                    ).post_res(url='https://www.open.cd/plugin_sign-in.php?cmd=signin', data=data)
+                                    ).post_res(url='https://open.cd/plugin_sign-in.php?cmd=signin', data=data)
             if sign_res and sign_res.status_code == 200:
                 logger.debug(f"sign_res返回 {sign_res.text}")
                 # sign_res.text = '{"state":"success","signindays":"0","integral":"10"}'
